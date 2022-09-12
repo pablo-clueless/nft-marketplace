@@ -1,0 +1,30 @@
+import { FC, ReactNode, createContext, useContext, useState } from 'react'
+
+interface IChildren {
+    children: ReactNode
+}
+
+const AppContext = createContext<any | null>(null)
+
+const initialState = { login: false }
+
+export const ContextProvider: FC<IChildren> = ({children}) => {
+    const [isClicked, setIsClicked] = useState<any>(initialState)
+
+    const handleClicked = (clicked: string) => {
+        setIsClicked({...initialState, [clicked]: true })
+    }
+
+    const handleUnclicked = (clicked: string) => {
+        setIsClicked({...initialState, [clicked]: false })
+    }
+
+    const values = {isClicked, handleClicked, handleUnclicked}
+    return (
+        <AppContext.Provider value={values}>
+            {children}
+        </AppContext.Provider>
+    )
+}
+
+export const useAppContext = () => useContext(AppContext)
