@@ -7,7 +7,7 @@ import { FOOTER_LINKS } from '../assets'
 const Footer = () => {
   return (
     <footer className='w-full flex flex-col items-center px-12 py-4'>
-        <div className='w-full flex flex-wrap'>
+        <div className='w-full flex flex-wrap mt-4'>
             {FOOTER_LINKS.map((item, index) => (
                 <div key={index} className='w-200 mb-6'>
                     <p className='font-medium text-xl text-slate-600 mb-8'>{item.title}</p>

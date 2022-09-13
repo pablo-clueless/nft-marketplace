@@ -11,6 +11,7 @@ module.exports = {
               },
               backgroundColor: {
                 'primary': '#E35A44',
+                'half-transparent': 'rgba(0, 0, 0, 0.5)',
               },
               textColor: {
                 'primary': '#E35A44',
@@ -34,6 +35,8 @@ module.exports = {
                 450: '450px',
                 500: '500px',
                 600: '600px',
+                700: '700px',
+                800: '800px',
               },
               borderColor: {
                 'primary': '#E35A44',

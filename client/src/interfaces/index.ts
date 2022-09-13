@@ -28,7 +28,7 @@ export interface NFTCard {
     description: string
     file: string
     price: number
-    creator: User
+    creator: User | string | null
     likes: number
 }
 

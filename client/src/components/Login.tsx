@@ -6,6 +6,7 @@ import { FaGoogle, FaGithub } from 'react-icons/fa'
 import { useAppContext } from '../contexts/AppContext'
 import { useFormInputs } from '../hooks/form-hook'
 import { Button, Input } from './'
+import { login_bg } from '../assets'
 
 const initial = {opacity: 0,scale: 0.5}
 const animate = {opacity: 1,scale: 1}
@@ -46,18 +47,21 @@ const Login:React.FC = () => {
             <Button type='button' label='Signin with Github' icon={<FaGithub/>} />
           </div>
         </div>
-        <div className='w-full h-1/2'></div>
+        <div className='w-full h-450'>
+          <img src={`${login_bg}`} alt='' className={style.image}  />
+        </div>
       </motion.div> 
     </div>
   )
 }
 
 const style = {
-  backdrop: `w-screen h-screen fixed top-0 left-0 bg-white bg-opacity-30 backdrop-blur-sm grid place-items-center`,
-  wrapper: `w-11/12 md:w-600 flex flex-col-reverse sm:flex-row items-center bg-white rounded py-4 drop-shadow-2xl px-2`,
-  formWrapper: `w-full flex flex-col items-center`,
+  backdrop: `w-screen h-screen fixed top-0 left-0 bg-half-transparent backdrop-blur-sm grid place-items-center`,
+  wrapper: `w-11/12 md:w-600 flex flex-col-reverse sm:flex-row items-center bg-white rounded drop-shadow-2xl`,
+  formWrapper: `w-full flex flex-col items-center px-2`,
   form: `w-4/5 sm:w-full flex flex-col`,
-  link: `text-xs text-slate-600 my-3`
+  image: `w-full h-full object-cover rounded-r`,
+  link: `text-xs text-slate-600 my-3`,
 }
 
 export default Login

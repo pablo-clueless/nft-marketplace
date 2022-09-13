@@ -6,10 +6,11 @@ interface IChildren {
 
 const AppContext = createContext<any | null>(null)
 
-const initialState = { login: false }
+const initialState = { login: false, add: false }
 
 export const ContextProvider: FC<IChildren> = ({children}) => {
     const [isClicked, setIsClicked] = useState<any>(initialState)
+    const [walletAddress, setWalletAddress] = useState<string>('')
 
     const handleClicked = (clicked: string) => {
         setIsClicked({...initialState, [clicked]: true })
@@ -19,7 +20,7 @@ export const ContextProvider: FC<IChildren> = ({children}) => {
         setIsClicked({...initialState, [clicked]: false })
     }
 
-    const values = {isClicked, handleClicked, handleUnclicked}
+    const values = {isClicked, handleClicked, handleUnclicked, walletAddress, setWalletAddress}
     return (
         <AppContext.Provider value={values}>
             {children}

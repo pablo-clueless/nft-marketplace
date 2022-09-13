@@ -2,13 +2,24 @@ import React, { ChangeEvent, ChangeEventHandler } from 'react'
 
 interface IInput {
     name: string
-    label: string
+    label?: string
     type: string
-    onChange: ChangeEventHandler<HTMLInputElement>
+    onChange: ChangeEventHandler
     placeholder?: string
 }
 
 const Input:React.FC<IInput> = ({name, label, type, onChange, placeholder}) => {
+  if(type === 'textarea') {
+    return (
+      <div className={style.formControl}>
+        <label htmlFor={name} className={style.label}>{label}</label>
+        <div className={style.textareaWrapper}>
+          <textarea name={name} onChange={onChange} className={style.textarea}></textarea>
+        </div>
+      </div>
+    )
+  }
+  
   return (
     <div className={style.formControl}>
         <label htmlFor={name} className={style.label}>{label}</label>
@@ -23,7 +34,9 @@ const style = {
     formControl: `w-full bg-transparent my-1`,
     label: `text-sm text-slate-600`,
     inputWrapper: `w-full h-8 bg-transparent border border-slate-600 focus-within:border-slate-300 rounded`,
+    textareaWrapper: `w-full h-100 bg-transparent border border-slate-600 focus-within:border-slate-300 rounded`,
     input: `w-full h-full bg-transparent outline-none border-none p-2 text-sm rounded placeholder:italic`,
+    textarea: `w-full h-full bg-transparent outline-none border-none p-2 text-sm rounded placeholder:italic resize-none`,
 }
 
 export default Input

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Space+Grotesk:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 :root {
 
@@ -10,16 +10,7 @@
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--color-primary);
-  border-radius: 40px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: transparent;
+  width: 0;
 }
 
 * {
@@ -43,3 +34,12 @@ input:-webkit-autofill {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.card img{
+  filter: grayscale(100%);
+  transition: all ease cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.card:hover img {
+  filter: none;
+}
