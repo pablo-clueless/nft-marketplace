@@ -24,6 +24,7 @@ export interface User {
 }
 
 export interface NFTCard {
+    _id: string
     name: string
     description: string
     file: string

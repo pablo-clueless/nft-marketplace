@@ -1,7 +1,9 @@
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const User = require('../schemas/user')
 const { PASSWORD_REGEX } = require('../utils')
+const { secret } = require('../config/auth.config')
 
 const createUser = async(req, res) => {
     const { username, password, walletAddress } = req.body
@@ -31,10 +33,26 @@ const loginUser = async(req, res) => {
         if(!user) return res.status(404).json({message: 'User not found'})
         const isPasswordValid = bcrypt.compare(password, user.password)
         if(!isPasswordValid) return res.status(400).json({message: 'Invalid password'})
-        res.status(200).json({message: 'Signin successful', user})
+        const token = jwt.sign({id: user._id}, secret, {expiresIn: '30d'})
+        req.session.token = token
+        res.status(200).json({message: 'Signin successful', user, token})
     } catch (error) {
         return res.status(500).json({message: `Internal server error, couldn't verify user`, error})
     }
 }
 
-module.exports = { createUser, loginUser }
+const addAvatar = async() => {
+    const { image, username } = req.body
+
+    try {
+        const user = User.findOne({username: username})
+        if(!user) return res.status(404).json({message: 'User not found'})
+        const updatedUser = await User.findOneAndUpdate({_id: user._id}, {image: image}, {new: true})
+        if(!updatedUser) return res.status(500).json({message: 'An error occurred'})
+        res.status(201).json({message: 'Profile picture added'})
+    } catch (error) {
+        return res.status(500).json({message: 'Internal server error', error})
+    }
+}
+
+module.exports = { addAvatar, createUser, loginUser }

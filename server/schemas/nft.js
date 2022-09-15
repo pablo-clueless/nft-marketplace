@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 const nftSchema = mongoose.Schema({
+    tokenId: { type: String },
     name: { type: String, required: true },
     description: { type: String, required: true },
     file: { type: String, required: true },
@@ -11,7 +12,8 @@ const nftSchema = mongoose.Schema({
         by: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
         amount: { type: Number }
     }],
-    likes: { type: Number, default: 0, min: 0 }
+    likes: { type: Number, default: 0, min: 0 },
+    listed: { type: Boolean, default: true },
 })
 
 const NFT = mongoose.model('NFT', nftSchema)

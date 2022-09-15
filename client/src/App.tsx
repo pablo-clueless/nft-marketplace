@@ -1,9 +1,9 @@
 import React, { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-import { Home, Signup } from './pages'
-import { AddNFT, Loader, Login, Navbar } from './components'
-import { useAppContext } from './contexts/AppContext'
+import { Community, Create, Explore, Home, NFT, Profile, Resources, Settings, Signup } from './pages'
+import { Loader, Login, Navbar } from './components'
+import { useAppContext, useSocketContext } from './contexts'
 
 declare global {
   interface window {
@@ -14,6 +14,9 @@ declare global {
 
 const App = () => {
   const { isClicked } = useAppContext()
+  const { socket } = useSocketContext()
+
+  socket.on('connect', () => console.log())
   
   return (
     <div className='bg-white'>
@@ -23,11 +26,17 @@ const App = () => {
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path='/' element={<Home />} />
+          <Route path='/explore' element={<Explore />} />
           <Route path='/signup' element={<Signup />} />
+          <Route path='/user/:id' element={<Profile />} />
+          <Route path='/create' element={<Create />} />
+          <Route path='/nft/:id' element={<NFT />} />
+          <Route path='/settings' element={<Settings />} />
+          <Route path='/community' element={<Community />} />
+          <Route path='/resources' element={<Resources />} />
         </Routes>
       </Suspense>
 
-      {isClicked.add && <AddNFT />}
       {isClicked.login && <Login />}
     </div>
   )

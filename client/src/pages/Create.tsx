@@ -1,19 +1,17 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
-import { FiX } from 'react-icons/fi'
 import { ethers } from 'ethers'
 
 import { pinFileToIPFS, pinJSONToIPFS } from '../libs/pinata'
-import { useAppContext } from '../contexts/AppContext'
 import { HeaderObject, MetaData } from '../interfaces'
 import { useFormInputs } from '../hooks/form-hook'
-import { Button, ImagePicker, Input } from './'
+import { Button, ImagePicker, Input } from '../components'
 
 declare let window: any
 let metamask: any
 
 if(typeof window !== 'undefined') metamask = window.ethereum
 
-const initialState = { name: '', description: '', collection: '' }
+const initialState = { name: '', description: '', collection: '', price: 0 }
 const contractAddress = ''
 const contractABI = ''
 
@@ -24,12 +22,11 @@ const createPinataRequestHeaders = (headers: Array<HeaderObject>) => {
     })
 }
 
-const AddNFT:React.FC = () => {
-    const { handleUnclicked } = useAppContext()
+const Create:React.FC = () => {
     const { inputs, bind } = useFormInputs(initialState)
     const [previewURL, setPreviewURL] = useState<any>(null)
     const [image, setImage] = useState<File | null>(null)
-    const { name, description, collection } = inputs
+    const { name, description, collection, price } = inputs
 
     const handleImageSelect  = (e: ChangeEvent<HTMLInputElement>) => {
         if (!e.currentTarget.files) return
@@ -46,10 +43,10 @@ const AddNFT:React.FC = () => {
         }
     }
 
-    const mint = async(e: FormEvent) => {
+    const listNFT = async(e: FormEvent) => {
         e.preventDefault()
         
-        if(!name || !description || !collection) return alert('Please fill all fields!')
+        if(!name || !description || !collection || !price) return alert('Please fill all fields!')
         if(!image) return alert('Please add an image')
         const pinataMetaData = { name: `${name} - ${description}`}
         const ipfsImageHash = await pinFileToIPFS(image, pinataMetaData)
@@ -62,9 +59,14 @@ const AddNFT:React.FC = () => {
             if(window.ethereum) {
                 const provider = new ethers.providers.Web3Provider(window.ethereum)
                 const signer = provider.getSigner()
-                // const contract = new ethers.Contract(contractAddress, contractABI, signer)
-                // const txn = await contract
-                // const res = await TextEncoder.wait()
+                let contract = new ethers.Contract(contractAddress, contractABI, signer)
+                const Itemprice = ethers.utils.parseUnits(price, 'ether')
+                let listingPrice = await contract.getListPrice()
+                listingPrice = listingPrice.toString()
+                let transaction = await contract.createToken(ipfsJsonHash, price, {value: listingPrice})
+                const res = await transaction.wait()
+            } else {
+                alert('You need to have MetaMask installed')
             }
         } catch (error) {
             
@@ -73,30 +75,10 @@ const AddNFT:React.FC = () => {
     }
 
   return (
-    <div className={style.backdrop}>
-        <div className={style.container}>
-            <div className='flex items-center justify-between mt-4 mb-8 px-3'>
-                <p className='text-xl'>Add NFT</p>
-                <button onClick={() => handleUnclicked('add')}>
-                    <FiX />
-                </button>
-            </div>
-            <form onSubmit={mint} className={style.form}>
-                <Input label='Name' type='text' name='name' {...bind} />
-                <Input label='Description' type='textarea' name='description' {...bind} />
-                <Input label='Collection' type='input' name='collection' {...bind} />
-                <ImagePicker name='image' previewURL={previewURL} onChange={handleImageSelect} onClick={() => setPreviewURL(null)} />
-                <Button type='submit' label='Create NFT' />
-            </form>
-        </div>
+    <div>
+
     </div>
   )
 }
 
-const style = {
-    backdrop: `w-screen h-screen fixed top-0 left-0 bg-half-transparent backdrop-blur-sm`,
-    container: `w-400 h-full bg-white float-right`,
-    form: `w-full flex flex-col gap-4 px-6`
-}
-
-export default AddNFT
+export default Create

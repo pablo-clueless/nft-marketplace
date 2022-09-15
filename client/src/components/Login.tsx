@@ -2,11 +2,14 @@ import React, { FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FaGoogle, FaGithub } from 'react-icons/fa'
+import axios from 'axios'
 
 import { useAppContext } from '../contexts/AppContext'
 import { useFormInputs } from '../hooks/form-hook'
 import { Button, Input } from './'
 import { login_bg } from '../assets'
+import { login } from '../store/features/user'
+import { useAppDispatch } from '../hooks/redux-hook'
 
 const initial = {opacity: 0,scale: 0.5}
 const animate = {opacity: 1,scale: 1}
@@ -19,6 +22,7 @@ const Login:React.FC = () => {
   const { handleUnclicked } = useAppContext()
   const { inputs, bind } = useFormInputs(initialState)
   const { username, password } = inputs
+  const dispatch = useAppDispatch()
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()

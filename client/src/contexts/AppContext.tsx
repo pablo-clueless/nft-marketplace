@@ -1,12 +1,18 @@
 import { FC, ReactNode, createContext, useContext, useState } from 'react'
 
+declare global {
+    interface Window {
+        ethereum: any
+        web3: any
+    }
+}
 interface IChildren {
     children: ReactNode
 }
 
 const AppContext = createContext<any | null>(null)
 
-const initialState = { login: false, add: false }
+const initialState = { login: false }
 
 export const ContextProvider: FC<IChildren> = ({children}) => {
     const [isClicked, setIsClicked] = useState<any>(initialState)

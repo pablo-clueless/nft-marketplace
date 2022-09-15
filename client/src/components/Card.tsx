@@ -3,7 +3,7 @@ import { FiHeart } from 'react-icons/fi'
 
 import { NFTCard } from '../interfaces'
 
-const Card:React.FC<NFTCard> = ({name, file, price, creator, likes}) => {
+const Card:React.FC<NFTCard> = ({_id, name, file, price, creator, likes}) => {
   return (
     <div className={style.container}>
       <div className={style.imageWrapper}>
@@ -34,7 +34,7 @@ const style = {
   wrapper: `w-full flex flex-col px-2 mt-2`,
   name: `text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-slate-600`,
   button: `bg-slate-300 flex items-center gap-2 rounded-full p-2 text-xs text-slate-900 absolute top-1 left-1`,
-  bidButton: `bg-gradient-to-l from-primary to-blue-500 rounded p-1 font-semibold text-white`
+  bidButton: `bg-gradient-to-l from-primary to-blue-500 p-1 text-white`
 }
 
 export default Card
