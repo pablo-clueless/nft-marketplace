@@ -2,14 +2,13 @@ import React, { FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FaGoogle, FaGithub } from 'react-icons/fa'
-import axios from 'axios'
+import Cookies from 'universal-cookie'
 
 import { useAppContext } from '../contexts/AppContext'
-import { useFormInputs } from '../hooks/form-hook'
-import { Button, Input } from './'
-import { login_bg } from '../assets'
+import { useAppDispatch, useFormInputs, useHttpRequest } from '../hooks'
 import { login } from '../store/features/user'
-import { useAppDispatch } from '../hooks/redux-hook'
+import { Button, Input } from './'
+import { art1 } from '../assets'
 
 const initial = {opacity: 0,scale: 0.5}
 const animate = {opacity: 1,scale: 1}
@@ -17,17 +16,28 @@ const transition = {default: {duration: 0.5, ease: [0, 0.71, 0.2, 1.01]}}
 const scale = {type: 'spring',stiffness: 100,dumping: 5,restDelta: 0.001}
 
 const initialState = { username: '', password: ''}
+const url = import.meta.env.VITE_URL
 
 const Login:React.FC = () => {
   const { handleUnclicked } = useAppContext()
   const { inputs, bind } = useFormInputs(initialState)
   const { username, password } = inputs
   const dispatch = useAppDispatch()
+  const cookies = new Cookies()
+  const { clearErr, error, fetcher, loading} = useHttpRequest()
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async(e: FormEvent): Promise<any> => {
     e.preventDefault()
     if(!username || !password) return alert('Please fill all fields')
-    console.log({username, password})
+    const payload = { username, password }
+    const headers = { 'Content-Type': 'application/json' }
+    try {
+      const data = await fetcher(`${url}/user/signin`, 'POST', JSON.stringify(payload), headers)
+      const { token, user } = data
+      dispatch(login(user))
+      cookies.set('auth-token', token)
+      return () => handleUnclicked('login')
+    } catch (error) {}
   }
 
   return (
@@ -52,7 +62,7 @@ const Login:React.FC = () => {
           </div>
         </div>
         <div className='w-full h-450'>
-          <img src={`${login_bg}`} alt='' className={style.image}  />
+          <img src={`${art1}`} alt='' className={style.image}  />
         </div>
       </motion.div> 
     </div>

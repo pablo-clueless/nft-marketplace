@@ -34,15 +34,15 @@ const db = mongoose.connection
 db.once('open', () => console.log('Successfully connected to MongoDB'))
 db.on('error', console.error.bind(console, 'Connection error: '))
 
-app.get('/', (req,res) => res.status(200).json({message: `Welcome to NFT Marketplace`}))
-
-app.use('/user', userRoutes)
-app.use('/nft', nftRoutes)
-
 const wrap = middleWare => (socket, next) => middleWare(socket.request, {}, next)
 io.use(wrap(sessionMiddleWare))
 io.on('connection', (socket) => {
     console.log(`socket.io is running on ${socket.handshake.url} at ${new Date().toLocaleString()}`)
 })
+
+app.get('/', (req,res) => res.status(200).json({message: `Welcome to NFT Marketplace`}))
+
+app.use('/user', userRoutes)
+app.use('/nft', nftRoutes)
 
 server.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT}`))

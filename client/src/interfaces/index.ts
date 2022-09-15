@@ -18,6 +18,7 @@ export interface PinataRequestBody {
 }
 
 export interface User {
+    _id: string
     username: string
     walletAddress: string
     profileImage: string

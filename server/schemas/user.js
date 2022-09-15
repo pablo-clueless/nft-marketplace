@@ -9,7 +9,11 @@ const userSchema = mongoose.Schema({
         name: { type: String },
         nfts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'NFT' }]
     }],
-    bids: [{ type: mongoose.Schema.Types.ObjectId, ref: 'NFT' }]
+    bids: [{
+        item: { type: mongoose.Schema.Types.ObjectId },
+        name: { type: String },
+        price: { type: Number }
+    }]
 })
 
 const User = mongoose.model('User', userSchema)

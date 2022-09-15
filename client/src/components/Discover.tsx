@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { } from 'react-icons/hi'
 
 import { Card } from './'
 import { NFT_LIST } from '../assets'

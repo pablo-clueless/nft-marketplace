@@ -13,7 +13,6 @@ const user = createSlice({
         login: (state, {payload}) => {
             state.user = payload
             state.isLoggedIn = true
-            // navigator.storage.
             localStorage.setItem('user', JSON.stringify(payload))
         },
         logout: (state) => {

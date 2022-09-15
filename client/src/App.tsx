@@ -1,9 +1,11 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 import { Community, Create, Explore, Home, NFT, Profile, Resources, Settings, Signup } from './pages'
-import { Loader, Login, Navbar } from './components'
 import { useAppContext, useSocketContext } from './contexts'
+import { Loader, Login, Navbar } from './components'
+import { login } from './store/features/user'
+import { useAppDispatch } from './hooks'
 
 declare global {
   interface window {
@@ -15,8 +17,15 @@ declare global {
 const App = () => {
   const { isClicked } = useAppContext()
   const { socket } = useSocketContext()
+  const dispatch = useAppDispatch()
 
-  socket.on('connect', () => console.log())
+  useEffect(() => {
+    const item = localStorage.getItem('user')
+    if(item) {
+      const user = JSON.parse(item)
+      dispatch(login(user))
+    }
+  },[])
   
   return (
     <div className='bg-white'>

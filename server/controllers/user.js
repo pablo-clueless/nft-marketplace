@@ -15,7 +15,7 @@ const createUser = async(req, res) => {
     try {
         const isUsernameInUse = await User.findOne({username: username})
         const isWalletAddressInUse = await User.findOne({walletAddress: walletAddress})
-        if(isUsernameInUse || !isWalletAddressInUse) return res.status(500).json({message: 'This user already exists.'})
+        if(isUsernameInUse || isWalletAddressInUse) return res.status(500).json({message: 'This user already exists.'})
         const saltRounds = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password, saltRounds)
         await User.create({username, walletAddress, password: hashedPassword})

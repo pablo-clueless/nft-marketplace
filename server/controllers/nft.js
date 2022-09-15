@@ -60,4 +60,50 @@ const remove = async(req, res) => {
     }
 }
 
-module.exports = { create, getAll, getOne, remove }
+const bid = async(req, res) => {
+    const { nftId, amount, bidId, action, id } = req.body
+    try {
+        const user = await User.findOne({_id: id})
+        if(!user) return res.status(404).json({message: 'User not found'})
+
+        const updates = {by: user.username, amount}
+        switch(action) {
+            case 'make-bid':
+                await NFT.findOneAndUpdate({_id: nftId}, {$push: {bids: {updates}}},{new: true}, (err) => {
+                    if(err) return res.status(400).json({message: 'Unable to place bid at the moment'})
+                    return res.status(201).json({message: 'Bid placed successfully'})
+                })
+            break
+            case 'remove-bid':
+                await NFT.findByIdAndUpdate({_id: nftId}, {$pull: {bids:{_id: bidId}}},{new: true}, (err) => {
+                    if(err) return res.status(400).json({message: 'Unable to remove bid at the moment'})
+                    return res.status(201).json({message: 'Bid removed successfully'})
+                })
+            break
+        }
+    } catch (error) {
+        return res.status(500).json({message: 'Internal server error', error})
+    }
+}
+
+const like = async(req, res) => {
+    const { action, nftId } = req.body
+    try {
+        switch(action) {
+            case 'like':
+                await NFT.findByIdAndUpdate({_id: nftId}, {$inc: {like: 1}}, {new: true}, (err) => {
+                    if(err) return res.status(400).json({message: 'Unable to like this NFT'})
+                    return res.status(200).json({message: 'NFT liked'})
+                })
+            break
+            case 'unlike':
+                await NFT.findByIdAndUpdate({_id: nftId}, {$inc: {like: -1}}, {new: true}, (err) => {
+                    if(err) return res.status(400).json({message: 'Unable to unlike '})
+                })
+        }
+    } catch (error) {
+        return res.status(500).json({message: 'Internal server error', error})
+    }
+}
+
+module.exports = { bid, create, getAll, getOne, like, remove, updateOne }
