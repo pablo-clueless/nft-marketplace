@@ -2,9 +2,9 @@ import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { ethers } from 'ethers'
 
 import { pinFileToIPFS, pinJSONToIPFS } from '../libs/pinata'
-import { HeaderObject, MetaData } from '../interfaces'
-import { useFormInputs } from '../hooks/form-hook'
 import { Button, ImagePicker, Input } from '../components'
+import { useFormInputs, useHttpRequest } from '../hooks'
+import { HeaderObject, MetaData } from '../interfaces'
 
 declare let window: any
 let metamask: any
@@ -14,6 +14,7 @@ if(typeof window !== 'undefined') metamask = window.ethereum
 const initialState = { name: '', description: '', collection: '', price: 0 }
 const contractAddress = ''
 const contractABI = ''
+const url = import.meta.env.VITE_URL
 
 const createPinataRequestHeaders = (headers: Array<HeaderObject>) => {
     const requestHeaders: HeadersInit = new Headers()
@@ -27,6 +28,7 @@ const Create:React.FC = () => {
     const [previewURL, setPreviewURL] = useState<any>(null)
     const [image, setImage] = useState<File | null>(null)
     const { name, description, collection, price } = inputs
+    const { clearErr, error, fetcher, loading } = useHttpRequest()
 
     const handleImageSelect  = (e: ChangeEvent<HTMLInputElement>) => {
         if (!e.currentTarget.files) return
@@ -54,6 +56,10 @@ const Create:React.FC = () => {
         const ipfsJsonHash = await pinJSONToIPFS(imageMetaData)
 
         const payload = {name, description, collection, ipfsJsonHash}
+        const headers = {
+            'Content-Type': 'application/json',
+            'x-access-token': ''
+        }
 
         try {
             if(window.ethereum) {
@@ -65,6 +71,9 @@ const Create:React.FC = () => {
                 listingPrice = listingPrice.toString()
                 let transaction = await contract.createToken(ipfsJsonHash, price, {value: listingPrice})
                 const res = await transaction.wait()
+
+                const data = await fetcher(`${url}/nft/add`, 'POST', JSON.stringify(payload), headers)
+                console.log(data)
             } else {
                 alert('You need to have MetaMask installed')
             }
@@ -75,10 +84,23 @@ const Create:React.FC = () => {
     }
 
   return (
-    <div>
-
+    <div className={style.container}>
+        <form onSubmit={listNFT} className={style.form}>
+            <Input label='Name' type='text' name='name' {...bind} placeholder='#001' />
+            <Input label='Description' type='textarea' name='description' {...bind} placeholder='NFTs are digital assets' />
+            <Input label='Collection' type='text' name='collection' {...bind} placeholder='Test Collection' />
+            <Input label='Price' type='number' name='price' {...bind} placeholder='0.01' min={0.02} />
+            <ImagePicker name='image' previewURL={previewURL} onChange={handleImageSelect} onClick={() => setPreviewURL(null)} />
+            <Button type='submit' label='Mint' />
+        </form>
     </div>
   )
+}
+
+const style = {
+    container: `grid place-items-center`,
+    wrapper: ``,
+    form: `w-4/5 md:w-500 flex flex-col gap-3`
 }
 
 export default Create

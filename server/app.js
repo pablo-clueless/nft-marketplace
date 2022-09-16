@@ -37,10 +37,15 @@ db.on('error', console.error.bind(console, 'Connection error: '))
 const wrap = middleWare => (socket, next) => middleWare(socket.request, {}, next)
 io.use(wrap(sessionMiddleWare))
 io.on('connection', (socket) => {
-    console.log(`socket.io is running on ${socket.handshake.url} at ${new Date().toLocaleString()}`)
+    console.log(`user ${socket.id} at ${new Date().toLocaleString()}`)
+
+    socket.on('message', (data) => {
+        socket.emit('response', data)
+    })
 })
 
 app.get('/', (req,res) => res.status(200).json({message: `Welcome to NFT Marketplace`}))
+
 
 app.use('/user', userRoutes)
 app.use('/nft', nftRoutes)

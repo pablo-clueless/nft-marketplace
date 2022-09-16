@@ -35,8 +35,8 @@ const Login:React.FC = () => {
       const data = await fetcher(`${url}/user/signin`, 'POST', JSON.stringify(payload), headers)
       const { token, user } = data
       dispatch(login(user))
+      handleUnclicked('login')
       cookies.set('auth-token', token)
-      return () => handleUnclicked('login')
     } catch (error) {}
   }
 

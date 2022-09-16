@@ -16,7 +16,7 @@ const Input:React.FC<IInput> = ({name, label, type, onChange, placeholder, min, 
       <div className={style.formControl}>
         <label htmlFor={name} className={style.label}>{label}</label>
         <div className={style.textareaWrapper}>
-          <textarea name={name} onChange={onChange} className={style.textarea}></textarea>
+          <textarea name={name} onChange={onChange} className={style.textarea} placeholder={placeholder} />
         </div>
       </div>
     )
