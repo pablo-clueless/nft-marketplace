@@ -39,3 +39,14 @@ export interface Action {
     name: string
     value: any
 }
+
+export interface BidDetails {
+    nftId: string
+    name: string
+    userId: string
+    amount: number
+    bidId?: string
+    action: string
+    username: string
+    onClose: () => void
+}

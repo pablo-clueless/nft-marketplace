@@ -3,7 +3,7 @@ import { ethers } from 'ethers'
 
 import { pinFileToIPFS, pinJSONToIPFS } from '../libs/pinata'
 import { Button, ImagePicker, Input } from '../components'
-import { useFormInputs, useHttpRequest } from '../hooks'
+import { useAppSelector, useFormInputs, useHttpRequest } from '../hooks'
 import { HeaderObject, MetaData } from '../interfaces'
 
 declare let window: any
@@ -29,6 +29,7 @@ const Create:React.FC = () => {
     const [image, setImage] = useState<File | null>(null)
     const { name, description, collection, price } = inputs
     const { clearErr, error, fetcher, loading } = useHttpRequest()
+    const { user } = useAppSelector(store => store.user)
 
     const handleImageSelect  = (e: ChangeEvent<HTMLInputElement>) => {
         if (!e.currentTarget.files) return
@@ -55,7 +56,7 @@ const Create:React.FC = () => {
         const imageMetaData: MetaData = {name, description, image: `ipfs://${ipfsImageHash}`}
         const ipfsJsonHash = await pinJSONToIPFS(imageMetaData)
 
-        const payload = {name, description, collection, ipfsJsonHash}
+        const payload = {name, description, collection, file: ipfsJsonHash, price, creator: user?._id }
         const headers = {
             'Content-Type': 'application/json',
             'x-access-token': ''

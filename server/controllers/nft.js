@@ -2,7 +2,7 @@ const NFT = require('../schemas/nft')
 const User = require('../schemas/user')
 
 const create = async(req, res) => {
-    const { tokenId, name, description, file, price, creator } = req.body
+    const { name, description, file, price, creator } = req.body
 
     try {
         const user = await User.findOne({_id: creator})
@@ -82,7 +82,7 @@ const bid = async(req, res) => {
             break
         }
     } catch (error) {
-        return res.status(500).json({message: 'Internal server error', error})
+        return res.status(500).json({message: 'Internal server error'})
     }
 }
 

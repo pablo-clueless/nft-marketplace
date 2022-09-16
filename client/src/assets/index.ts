@@ -1,3 +1,4 @@
+import metamask from './icons/metamask.svg'
 import login_bg from './images/login.png'
 import art1 from './images/art-1.jpeg'
 import nft1 from './images/nft-1.jpeg'
@@ -114,4 +115,4 @@ const NFT_LIST = [
     },
 ]
 
-export { art1, login_bg, FOOTER_LINKS, NFT_LIST }
+export { art1, login_bg, metamask, FOOTER_LINKS, NFT_LIST }

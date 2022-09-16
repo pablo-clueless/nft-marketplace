@@ -1,4 +1,5 @@
 
+export { default as BidModal } from './BidModal'
 export { default as Button } from './Button'
 export { default as Card } from './Card'
 export { default as Discover } from './Discover'

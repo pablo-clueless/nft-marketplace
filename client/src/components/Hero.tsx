@@ -1,23 +1,18 @@
-import React, { ChangeEvent, useEffect } from 'react'
+import React, { ChangeEvent } from 'react'
 import { Link } from 'react-router-dom'
 
-import { useSocketContext } from '../contexts'
 import { useHttpRequest } from '../hooks'
 import { Button, Input } from './'
 import hero from '../assets/images/hero.jpg'
 
 const Hero:React.FC = () => {
-    const { socket, notifications } = useSocketContext()
     const { error, fetcher, loading } = useHttpRequest()
     
     const search = async(e: ChangeEvent<HTMLInputElement>) => {
         const query = e.target.value
         console.log(query)
     }
-    
-    const notifyTest = () => {
-        socket.emit('message', 'Test message')
-    }
+
 
   return (
     <div className={style.wrapper}>
@@ -45,7 +40,6 @@ const Hero:React.FC = () => {
                 <p>Name: #009</p>
                 <p className='ml-20'>Price: 10ETH</p>
             </div>
-                <Button type='button' label='Notify' onClick={notifyTest} />
         </div>
     </div>
   )

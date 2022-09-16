@@ -9,14 +9,14 @@ router.get('/get', getAll)
 
 router.get('/get/:id', getOne)
 
-router.post('/add', verifyToken, create)
+router.post('/add', create)
 
-router.put('/update-price', verifyToken, updateOne)
+router.put('/update-price', updateOne)
 
-router.put('/bid', verifyToken, bid)
+router.put('/bid', bid)
 
-router.put('/like', verifyToken, like)
+router.put('/like', like)
 
-router.delete('/delete/:id', verifyToken, remove)
+router.delete('/delete/:id', remove)
 
 module.exports = router

@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FaGoogle, FaGithub } from 'react-icons/fa'
 import Cookies from 'universal-cookie'
+import { FiX } from 'react-icons/fi'
 
 import { useAppContext } from '../contexts/AppContext'
 import { useAppDispatch, useFormInputs, useHttpRequest } from '../hooks'
 import { login } from '../store/features/user'
-import { Button, Input } from './'
+import { Button, IconButton, Input } from './'
 import { art1 } from '../assets'
 
 const initial = {opacity: 0,scale: 0.5}
@@ -61,8 +62,11 @@ const Login:React.FC = () => {
             <Button type='button' label='Signin with Github' icon={<FaGithub/>} />
           </div>
         </div>
-        <div className='w-full h-450'>
+        <div className='w-full h-450 relative'>
           <img src={`${art1}`} alt='' className={style.image}  />
+          <div className='absolute top-1 left-1 block md:hidden'>
+            <IconButton icon={<FiX />} onClick={() => handleUnclicked('login')} />
+          </div>
         </div>
       </motion.div> 
     </div>

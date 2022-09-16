@@ -3,6 +3,7 @@ const http = require('http')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
+const uuid = require('uuid').v4
 
 require('dotenv').config()
 
@@ -39,8 +40,14 @@ io.use(wrap(sessionMiddleWare))
 io.on('connection', (socket) => {
     console.log(`user ${socket.id} at ${new Date().toLocaleString()}`)
 
-    socket.on('message', (data) => {
-        socket.emit('response', data)
+    socket.on('bid-made', (data) => {
+        const reply = { data, time: new Date().toLocaleString()}
+        socket.emit('response', reply)
+    })
+
+    socket.on('bid-removed', (data) => {
+        const reply = { data, time: new Date().toLocaleString()}
+        socket.emit('response', reply)
     })
 })
 

@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FiHeart } from 'react-icons/fi'
 
+import { useAppSelector } from '../hooks'
 import { NFTCard } from '../interfaces'
+import { BidModal } from './'
 
 const Card:React.FC<NFTCard> = ({_id, name, file, price, creator, likes}) => {
+  const [openModal, setOpenModal] = useState<boolean>(false)
+  const { user } = useAppSelector(store => store.user)
+
   return (
+    <>
+    {openModal && <BidModal nftId={`${_id}`} name={name} amount={price} action='make-bid'
+    username={`${user?.username}`} userId={`${user?._id}`} onClose={() => setOpenModal(false)} />}
     <div className={style.container}>
       <div className={style.imageWrapper}>
         <img src={file} alt={name} className={style.image} />
@@ -14,7 +22,7 @@ const Card:React.FC<NFTCard> = ({_id, name, file, price, creator, likes}) => {
         <p className='text-xs mb-2'><>By {creator}</></p>
         <div className='flex items-center justify-between'>
           <p className='text-sm'>{price}ETH</p>
-          <button className={style.bidButton} onClick={() => alert(`Bid placed for item ${name} at ${price}eth`)}>
+          <button className={style.bidButton} onClick={() => setOpenModal(true)}>
             Place Bid
           </button>
         </div>
@@ -24,6 +32,7 @@ const Card:React.FC<NFTCard> = ({_id, name, file, price, creator, likes}) => {
         {likes}
       </button>
     </div>
+    </>
   )
 }
 
