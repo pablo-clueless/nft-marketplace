@@ -12,7 +12,7 @@ interface IChildren {
 
 const AppContext = createContext<any | null>(null)
 
-const initialState = { login: false }
+const initialState = { login: false, notification: false }
 
 export const ContextProvider: FC<IChildren> = ({children}) => {
     const [isClicked, setIsClicked] = useState<any>(initialState)

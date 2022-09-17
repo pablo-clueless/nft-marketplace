@@ -67,10 +67,10 @@ const Create:React.FC = () => {
                 const provider = new ethers.providers.Web3Provider(window.ethereum)
                 const signer = provider.getSigner()
                 let contract = new ethers.Contract(contractAddress, contractABI, signer)
-                const Itemprice = ethers.utils.parseUnits(price, 'ether')
+                const itemPrice = ethers.utils.parseUnits(price, 'ether')
                 let listingPrice = await contract.getListPrice()
                 listingPrice = listingPrice.toString()
-                let transaction = await contract.createToken(ipfsJsonHash, price, {value: listingPrice})
+                let transaction = await contract.createToken(`ipfs://${ipfsJsonHash}`, price, {value: listingPrice})
                 const res = await transaction.wait()
 
                 const data = await fetcher(`${url}/nft/add`, 'POST', JSON.stringify(payload), headers)

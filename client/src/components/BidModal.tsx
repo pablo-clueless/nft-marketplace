@@ -21,9 +21,10 @@ const BidModal:React.FC<BidDetails> = ({nftId, name, amount, bidId, username, us
         const payload = { nftId, name, amount: bidAmount, bidId, id: userId, action }
         const headers = { 'Content-Type': 'application/json' }
         try {
-            await fetcher(`${url}/nft/bid`, 'PUT', JSON.stringify(payload), headers)
+            // await fetcher(`${url}/nft/bid`, 'PUT', JSON.stringify(payload), headers)
             const data = `${username} made a bid for ${name} at ${bidAmount}`
             socket.emit('bid-made', data)
+            return () => onClose()
         } catch (error) {}
     }
 

@@ -41,7 +41,7 @@ io.on('connection', (socket) => {
     console.log(`user ${socket.id} at ${new Date().toLocaleString()}`)
 
     socket.on('bid-made', (data) => {
-        const reply = { data, time: new Date().toLocaleString()}
+        const reply = { data, id: uuid(), time: new Date().toLocaleString(), isRead: false}
         socket.emit('response', reply)
     })
 

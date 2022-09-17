@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 
 import { Community, Create, Explore, Home, NFT, Profile, Resources, Settings, Signup } from './pages'
 import { useAppContext } from './contexts'
-import { Loader, Login, Navbar } from './components'
+import { Loader, Login, Navbar, NotificationsTab } from './components'
 import { login } from './store/features/user'
 import { useAppDispatch } from './hooks'
 
@@ -38,6 +38,7 @@ const App = () => {
       </Suspense>
 
       {isClicked.login && <Login />}
+      {isClicked.notification && <NotificationsTab />}
     </div>
   )
 }

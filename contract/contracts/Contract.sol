@@ -22,9 +22,10 @@ contract Contract is ERC721URIStorage {
     }
 
     event TokenListedSuccess (uint256 indexed tokenId, address owner, address seller, uint256 price, bool currentlyListed);
+    event TokenSold (uint256 indexed tokenId, address buyer, uint256 price, string message);
     mapping(uint256 => ListedToken) private idToListedToken;
 
-    constructor() ERC721("", "") {
+    constructor() ERC721("NFTMarketPlace", "NMP") {
         owner = payable(msg.sender);
     }
 
@@ -42,8 +43,8 @@ contract Contract is ERC721URIStorage {
         return idToListedToken[currentTokenId];
     }
 
-    function getListedTokenForId(uint256 tokenId) public view returns (ListedToken memory) {
-        return idToListedToken[tokenId];
+    function getListedTokenForId(uint256 _tokenId) public view returns (ListedToken memory) {
+        return idToListedToken[_tokenId];
     }
 
     function getCurrentToken() public view returns (uint256) {
@@ -67,7 +68,7 @@ contract Contract is ERC721URIStorage {
         emit TokenListedSuccess(tokenId, address(this), msg.sender, price, true);
     }
 
-    function getAllNFTs() public views returns(ListedToken[] memory) {
+    function getAllNFTs() public view returns(ListedToken[] memory) {
         uint count = _tokenIds.current();
         ListedToken[] memory tokens = new ListedToken[](count);
         uint currentIndex = 0;
@@ -105,16 +106,16 @@ contract Contract is ERC721URIStorage {
     }
 
     function buyNFT(uint256 _tokenId) public payable {
-        uint price = idToListedToken[tokenId].price;
-        address seller = idToListedToken[tokenId].seller;
+        uint price = idToListedToken[_tokenId].price;
+        address seller = idToListedToken[_tokenId].seller;
         require(msg.value == price, "Please submit the asking price in order to complete the purchase");
 
-        idToListedToken[tokenId].currentlyListed = true;
-        idToListedToken[tokenId].seller = payable(msg.sender);
+        idToListedToken[_tokenId].currentlyListed = true;
+        idToListedToken[_tokenId].seller = payable(msg.sender);
         _itemsSold.increment();
 
-        _transfer(address(this), msg.sender, tokenId);
-        approve(address(this), tokenId);
+        _transfer(address(this), msg.sender, _tokenId);
+        approve(address(this), _tokenId);
         payable(owner).transfer(listPrice);
         payable(seller).transfer(msg.value);
     }

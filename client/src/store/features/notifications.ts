@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { NotificationsType } from '../../types'
 
@@ -14,14 +14,21 @@ const notifications = createSlice({
     name: 'notifications',
     initialState,
     reducers: {
-        addNofitication: (state, { payload }) => {
-            state.notifications.unshift(payload)
+        addNofitication: (state, action: PayloadAction<any>) => {
+            state.notifications.unshift(action.payload)
         },
-        deleteNotification: (state, { payload }) => {
-            state.notifications.filter(item => item.id !== payload)
+        deleteNotification: (state, action: PayloadAction<any>) => {
+            const itemId = action.payload
+            state.notifications = state.notifications.filter(item => item.id !== itemId)
+        },
+        markAsRead: (state, action: PayloadAction<any>) => {
+            const itemId = action.payload
+            const item = state.notifications.find(item => item.id === itemId)
+            let isRead = item?.isRead
+            isRead = true
         }
     }
 })
 
-export const { addNofitication, deleteNotification } = notifications.actions
+export const { addNofitication, deleteNotification, markAsRead } = notifications.actions
 export default notifications.reducer

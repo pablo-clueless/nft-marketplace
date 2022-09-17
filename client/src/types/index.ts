@@ -8,7 +8,8 @@ export type UserType = {
 
 export type NotificationsType = {
     id: string
-    content: string
-    timestamp: Date | string
+    data: string
+    time: string
     sender: UserType | null
+    isRead: boolean
 }

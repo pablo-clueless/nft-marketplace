@@ -16,7 +16,7 @@ const Navbar = () => {
     <nav className='w-full flex items-center justify-between px-12 py-8'>
       <div></div>
       <div className='flex items-center gap-4'>
-        {isLoggedIn && <IconButton icon={<HiOutlineBell />} badge count={notifications.length} />}
+        {isLoggedIn && <IconButton icon={<HiOutlineBell />} badge count={notifications.length} onClick={() => handleClicked('notification')} />}
         {isLoggedIn && <Link to={`/explore`}><IconButton icon={<HiOutlineShoppingBag />} /></Link>}
         {isLoggedIn && <Link to={`/user/${id}`}><IconButton icon={<HiOutlineUser />} /></Link>}
         {!isLoggedIn && <Button type='button' label='Login' onClick={() => handleClicked('login')} variant='outlined' />}
