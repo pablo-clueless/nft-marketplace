@@ -2,6 +2,7 @@
 export { default as BidModal } from './BidModal'
 export { default as Button } from './Button'
 export { default as Card } from './Card'
+export { default as CategoryButton } from './CategoryButton'
 export { default as Discover } from './Discover'
 export { default as Footer } from './Footer'
 export { default as Hero } from './Hero'

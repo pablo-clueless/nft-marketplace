@@ -20,6 +20,7 @@ const Hero:React.FC = () => {
             <p className={style.title}>Create awesome NFTs on the Goerli testnet.</p>
             <p className='text-md'>
                 ****** is the premiere marketplace for NFTs, which are digital assets your truly own.
+                You can quicly mint NFTs and create your collection on Goerli for low fees.
             </p>
             <div className='my-8'>
                 <Link to='/create'>
@@ -33,12 +34,24 @@ const Hero:React.FC = () => {
         <div className={style.container2}>
             <div className={style.circle}>
                 <div className={style.circle2}>
-                    <img src={`${hero}`} alt='' className={style.image} />
+                    <div className={style.circle3}>
+                        <img src={`${hero}`} alt='' className={style.image} />
+                    </div>
                 </div>
             </div>
             <div className={style.desc}>
-                <p>Name: #009</p>
-                <p className='ml-20'>Price: 10ETH</p>
+                <p>Minting...</p>
+
+                <div className='flex items-center gap-8 mt-6'>
+                    <div className='flex flex-col items-center'>
+                        <p className='text-base'>Monkey Art #010</p>
+                        <p className='text-xs'>@pablo_clueless</p>
+                    </div>
+                    <div className='flex flex-col items-center'>
+                        <p className='text-base'>4.5 ETH</p>
+                        <p className='text-xs'>Gas free</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -50,10 +63,11 @@ const style = {
     container: `w-full md:w-2/5 h-full flex flex-col px-6`,
     container2: `w-full md:w-3/5 h-full flex flex-col items-center my-8`,
     title: `text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-primary to-blue-300 mb-8`,
-    circle: `w-300 md:w-400 h-300 md:h-400 grid place-items-center bg-gradient-to-br from-primary to-blue-300 border border-primary rounded-full p-1`,
+    circle: `w-300 md:w-400 h-300 md:h-400 grid place-items-center bg-gradient-to-br from-primary to-blue-300 border border-primary rounded-full p-2`,
     circle2: `w-full h-full bg-white grid place-items-center border border-primary rounded-full`,
+    circle3: `w-4/5 h-4/5 bg-white grid place-items-center border border-primary rounded-full relative`,
     image: `w-full h-full object-cover rounded-full`,
-    desc: `flex flex-col text-3xl font-semibold text-transparent gap-2 mt-4 bg-clip-text bg-gradient-to-tl from-blue-300 to-pink-600`
+    desc: `flex flex-col items-center text-3xl font-semibold text-transparent gap-2 mt-4 bg-clip-text bg-gradient-to-tl from-blue-300 to-pink-600`
 }
 
 export default Hero

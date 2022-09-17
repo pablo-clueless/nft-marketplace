@@ -136,4 +136,19 @@ const NFT_LIST = [
     },
 ]
 
-export { art1, login_bg, metamask, signup_bg, FOOTER_LINKS, NFT_LIST }
+const NFT_CATEGORY = [
+    {
+        name: 'Arts',
+    },
+    {
+        name: 'Collectibles',
+    },
+    {
+        name: 'Music',
+    },
+    {
+        name: 'Photography',
+    },
+]
+
+export { art1, login_bg, metamask, signup_bg, FOOTER_LINKS, NFT_CATEGORY, NFT_LIST }
