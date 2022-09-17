@@ -10,8 +10,8 @@ const rootReducer = combineReducers({
     user: userReducer,
     notification: notificationReducer
 })
-// const persistConfig = { key: 'root', storage }
-// const persistedReducer = persistReducer(persistConfig, rootReducer)
+const persistConfig = { key: 'root', storage }
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
     reducer: rootReducer,

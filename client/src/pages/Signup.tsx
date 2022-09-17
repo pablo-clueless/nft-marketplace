@@ -1,11 +1,10 @@
 import React, { FormEvent } from 'react'
-import axios from 'axios'
 
 import { Button, Input } from '../components'
 import { useFormInputs, useHttpRequest } from '../hooks'
 import { useAppContext } from '../contexts/AppContext'
 import { PASSWORD_REGEX } from '../libs'
-import { metamask } from '../assets'
+import { metamask, signup_bg } from '../assets'
 
 const initialState = {username: '', password: ''}
 const url = import.meta.env.VITE_URL
@@ -46,8 +45,8 @@ const Signup = () => {
   return (
     <div className={style.container}>
       <div className={style.wrapper}>
-        <p className={style.title}>Welcome</p>
-        <p className='text-lg'>Conect your MetaMask wallet & get ready to explore the amazing word of NFTs.</p>
+        <p className={style.title}>Signup</p>
+        <p className='text-lg text-center'>Conect your MetaMask wallet & get ready to explore the amazing word of NFTs.</p>
 
         <button onClick={connectWallet} className={style.metamaskButton}>
           {!walletAddress ?
@@ -65,16 +64,28 @@ const Signup = () => {
           <Button type='submit' label='Signup' />
         </form>
       </div>
+      <div className={style.wrapper2}>
+        <div className={style.textWrapper}>
+          <div className={style.imageWrapper}>
+            <img src={`${signup_bg}`} alt='' className={style.image} />
+          </div>
+          <p>Create an account and get access to mint and sell digital assets</p>
+        </div>
+      </div>
     </div>
   )
 }
 
 const style = {
-  container: `w-screen grid place-items-center px-6`,
-  wrapper: `w-full flex flex-col items-center`,
+  container: `w-screen md:h-[819px] flex`,
+  wrapper: `w-full h-full flex flex-col items-center justify-center px-4`,
+  wrapper2: `w-full h-full hidden md:block`,
   title: `text-3xl font-bold text-primary text-center mb-6`,
   form: `w-full sm:w-500 flex flex-col items-center gap-6`,
   metamaskButton: `bg-black px-4 py-2 text-lg text-white mt-6 mb-12 jelly`,
+  textWrapper: `w-full h-full bg-primary flex flex-col items-center justify-center gap-4 text-center px-4 text-3xl text-white`,
+  imageWrapper: `w-300 h-300 rounded-full border-4 border-white`,
+  image: `w-full h-full object-cover rounded-full`
 }
 
 export default Signup

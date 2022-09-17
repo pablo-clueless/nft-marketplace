@@ -1,5 +1,6 @@
 import metamask from './icons/metamask.svg'
 import login_bg from './images/login.png'
+import signup_bg from './images/signup-nft.jpg'
 import art1 from './images/art-1.jpeg'
 import nft1 from './images/nft-1.jpeg'
 import nft2 from './images/nft-2.png'
@@ -8,6 +9,8 @@ import nft4 from './images/nft-4.png'
 import nft5 from './images/nft-5.png'
 import nft6 from './images/nft-6.png'
 import nft7 from './images/nft-7.png'
+import nft8 from './images/nft-8.jpg'
+import nft9 from './images/nft-9.jpg'
 
 const FOOTER_LINKS = [
     {
@@ -113,6 +116,24 @@ const NFT_LIST = [
         creator: 'pablo_clueless',
         likes: 200
     },
+    {
+        _id: '008',
+        name: '#008',
+        description: 'NFTs are digital assets you actually own. Mint one today and it could be worth millions tomorrow',
+        file: nft8,
+        price: 5.9,
+        creator: 'pablo_clueless',
+        likes: 200
+    },
+    {
+        _id: '009',
+        name: '#009',
+        description: 'NFTs are digital assets you actually own. Mint one today and it could be worth millions tomorrow',
+        file: nft9,
+        price: 5.9,
+        creator: 'pablo_clueless',
+        likes: 200
+    },
 ]
 
-export { art1, login_bg, metamask, FOOTER_LINKS, NFT_LIST }
+export { art1, login_bg, metamask, signup_bg, FOOTER_LINKS, NFT_LIST }

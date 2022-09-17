@@ -7,7 +7,7 @@ import { useAppContext } from '../contexts'
 import { Button } from './'
 import { deleteNotification, markAsRead } from '../store/features/notifications'
 
-const NotificationsTab = () => {
+const NotificationsTab:React.FC = () => {
     const { notifications } = useAppSelector(store => store.notification)
     const { handleUnclicked } = useAppContext()
     const dispatch = useAppDispatch()
@@ -23,9 +23,9 @@ const NotificationsTab = () => {
           <MdOutlineCancel />
         </button>
       </div>
-      <div className='w-80 h-200 flex flex-col items-center gap-2 py-2 px-4 mt-5 overflow-y-scroll border border-slate-400'>
+      <div className='w-[350px] h-200 flex flex-col items-center gap-2 p-1 mt-5 overflow-y-scroll border border-slate-400'>
         {notifications.map((notification, index) => (
-            <div key={index} className={`border border-slate-400 p-2 relative ${notification.isRead ? 'bg-transparent' : 'bg-slate-400'}`}>
+            <div key={index} className={`w-full border border-slate-400 p-1 relative ${notification.isRead ? 'bg-transparent' : 'bg-slate-400'}`}>
               <p className='text-sm'>{notification.data}</p>
               <p className='text-xs'>{notification.time}</p>
               <button className='absolute bottom-1 right-1' onClick={() => dispatch(deleteNotification(notification.id))}>

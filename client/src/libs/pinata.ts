@@ -11,6 +11,7 @@ export const pinJSONToIPFS = async(json: MetaData) => {
     return axios
     .post(url, json, {
         headers: {
+            'Content-Type': 'application/json',
             pinata_api_key: <string> pinata_key,
             pinata_secret_api_key: <string> pinata_secret
         },

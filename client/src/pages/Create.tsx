@@ -50,28 +50,27 @@ const Create:React.FC = () => {
     const listNFT = async(e: FormEvent) => {
         e.preventDefault()
         
+        if(!user) return alert('Please login to create an NFT!')
         if(!name || !description || !collection || !price) return alert('Please fill all fields!')
         if(!image) return alert('Please add an image')
-        const pinataMetaData = { name: `${name} - ${description}`}
-        const ipfsImageHash = await pinFileToIPFS(image, pinataMetaData)
-        const imageMetaData: MetaData = {name, description, image: `ipfs://${ipfsImageHash}`}
-        const ipfsJsonHash = await pinJSONToIPFS(imageMetaData)
-
-        const payload = {name, description, collection, file: ipfsJsonHash, price, creator: user?._id }
-        const headers = {
-            'Content-Type': 'application/json',
-            'x-access-token': ''
-        }
-
+        
         try {
             if(window.ethereum) {
+                const pinataMetaData = { name: `${name} - ${description}`}
+                const ipfsImageHash = await pinFileToIPFS(image, pinataMetaData)
+                const imageMetaData: MetaData = {name, description, image: `ipfs://${ipfsImageHash}`}
+                const ipfsJsonHash = await pinJSONToIPFS(imageMetaData)
+        
+                const payload = {name, description, collection, file: ipfsJsonHash, price, creator: user?._id }
+                const headers = { 'Content-Type': 'application/json', 'x-access-token': '' }
+
                 const provider = new ethers.providers.Web3Provider(window.ethereum)
                 const signer = provider.getSigner()
                 let contract = new ethers.Contract(contractAddress, contractABI, signer)
                 const itemPrice = ethers.utils.parseUnits(price, 'ether')
                 let listingPrice = await contract.getListPrice()
                 listingPrice = listingPrice.toString()
-                let transaction = await contract.createToken(`ipfs://${ipfsJsonHash}`, price, {value: listingPrice})
+                let transaction = await contract.createNFT(`ipfs://${ipfsJsonHash}`, {price: itemPrice}, {value: listingPrice})
                 const res = await transaction.wait()
 
                 const data = await fetcher(`${url}/nft/add`, 'POST', JSON.stringify(payload), headers)
@@ -82,7 +81,7 @@ const Create:React.FC = () => {
         } catch (error) {
             
         }
-        setImage(null); setPreviewURL(null)
+        // setImage(null); setPreviewURL(null)
     }
 
   return (
