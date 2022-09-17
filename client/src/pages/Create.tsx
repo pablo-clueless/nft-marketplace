@@ -5,6 +5,7 @@ import { pinFileToIPFS, pinJSONToIPFS } from '../libs/pinata'
 import { Button, ImagePicker, Input } from '../components'
 import { useAppSelector, useFormInputs, useHttpRequest } from '../hooks'
 import { HeaderObject, MetaData } from '../interfaces'
+import abi from '../contract/Contract.json'
 
 declare let window: any
 let metamask: any
@@ -12,8 +13,8 @@ let metamask: any
 if(typeof window !== 'undefined') metamask = window.ethereum
 
 const initialState = { name: '', description: '', collection: '', price: 0 }
-const contractAddress = ''
-const contractABI = ''
+const contractAddress = '0x0b70CfC1EF9b95407a2292bc52636D41470B5901'
+const contractABI = abi.abi
 const url = import.meta.env.VITE_URL
 
 const createPinataRequestHeaders = (headers: Array<HeaderObject>) => {
