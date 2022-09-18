@@ -1,10 +1,12 @@
 import React, { Suspense, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.min.css'
 
 import { Community, Create, Explore, Home, NFT, Profile, Resources, Settings, Signup } from './pages'
 import { useAppContext } from './contexts'
 import { Loader, Login, Navbar, NotificationsTab } from './components'
-import { login } from './store/features/user'
+import { login } from './store/slices/user'
 import { useAppDispatch } from './hooks'
 
 declare global {
@@ -13,6 +15,8 @@ declare global {
       web3: any
   }
 }
+
+const props = { positon: 'top-right'}
 
 const App = () => {
   const { isClicked } = useAppContext()
@@ -23,6 +27,7 @@ const App = () => {
       <div className='static top-0 left-0 z-50'>
         <Navbar />
       </div>
+      <ToastContainer position='top-center' autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path='/' element={<Home />} />

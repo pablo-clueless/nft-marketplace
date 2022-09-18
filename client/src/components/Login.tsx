@@ -1,13 +1,14 @@
-import React, { FormEvent } from 'react'
+import React, { FormEvent, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FaGoogle, FaGithub } from 'react-icons/fa'
 import Cookies from 'universal-cookie'
 import { FiX } from 'react-icons/fi'
+import { toast } from 'react-toastify'
 
 import { useAppContext } from '../contexts/AppContext'
 import { useAppDispatch, useFormInputs, useHttpRequest } from '../hooks'
-import { login } from '../store/features/user'
+import { login } from '../store/slices/user'
 import { Button, IconButton, Input } from './'
 import { art1 } from '../assets'
 
@@ -29,11 +30,12 @@ const Login:React.FC = () => {
 
   const handleSubmit = async(e: FormEvent): Promise<any> => {
     e.preventDefault()
-    if(!username || !password) return alert('Please fill all fields')
+    if(!username || !password) return toast.error('Please fill all fields')
     const payload = { username, password }
     const headers = { 'Content-Type': 'application/json' }
     try {
       const data = await fetcher(`${url}/user/signin`, 'POST', JSON.stringify(payload), headers)
+      if(!data || data === undefined) return
       const { token, user } = data
       dispatch(login(user))
       handleUnclicked('login')
@@ -41,8 +43,12 @@ const Login:React.FC = () => {
     } catch (error) {}
   }
 
+  useEffect(() => {
+    if(error) toast.error(`${error}`)
+  },[error])
+
   return (
-    <div className={style.backdrop} onClick={() => handleUnclicked('login')}>
+    <div className={style.backdrop} onClick={() => loading ? null : handleUnclicked('login')}>
       <motion.div initial={initial} whileInView={animate} transition={{default: transition, scale: scale}}
       className={style.wrapper} onClick={(e) => e.stopPropagation()}>
         <div className={style.formWrapper}>
@@ -54,7 +60,7 @@ const Login:React.FC = () => {
             <p className={style.link}>Forgot your password?
               <Link to='/forgot-password' className='text-primary underline ml-1'>Reset it here.</Link>
             </p>
-            <Button type='submit' label='Login' />
+            <Button type='submit' label='Login' disabled={loading} />
           </form>
           
           <div className='flex flex-col items-center gap-2 my-4'>
@@ -65,7 +71,7 @@ const Login:React.FC = () => {
         <div className='w-full h-450 relative'>
           <img src={`${art1}`} alt='' className={style.image}  />
           <div className='absolute top-1 left-1 block md:hidden'>
-            <IconButton icon={<FiX />} onClick={() => handleUnclicked('login')} />
+            <IconButton icon={<FiX />} onClick={() => loading ? null : handleUnclicked('login')} />
           </div>
         </div>
       </motion.div> 

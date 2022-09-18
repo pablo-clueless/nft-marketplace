@@ -7,7 +7,7 @@ const create = async(req, res) => {
     try {
         const user = await User.findOne({_id: creator})
         if(!user) return res.status(404).json({message: 'User not found'})
-        const newNFT = await new NFT({tokenId, name, description, file, price, creator: user })
+        const newNFT = new NFT({ tokenId, name, description, file, price, creator: user })
         const nft = await newNFT.save()
         if(!nft) return res.status(400).json({message: 'Unable to upload NFT at this time'})
         return res.status(201).json({message: 'NFT added to your collection'})
@@ -41,7 +41,7 @@ const updateOne = async(req, res) => {
     try {
         const nft = await NFT.findOne({_id: id})
         if(!nft) return res.status(404).json({message: 'NFT not found'})
-        const updatedNft = NFT.findOneAndUpdate({_id: id},{$set: {price: newPrice}},{new: true})
+        const updatedNft = await NFT.findOneAndUpdate({_id: id},{$set: {price: newPrice}},{new: true})
         if(!updatedNft) return res.status(400).json({message: 'Unable to update price listing'})
         return res.status(201).json({message: 'NFT listing price updated'})
     } catch (error) {

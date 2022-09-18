@@ -48,8 +48,16 @@ input:-webkit-autofill {
   animation: jelly 0.5s ;
 }
 
+.jelly:disabled:hover {
+  animation: none;
+}
+
 .shake:hover {
   animation: shake 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.shake:disabled:hover {
+  animation: none;
 }
 
 @keyframes jelly {

@@ -31,7 +31,7 @@ const loginUser = async(req, res) => {
     try {
         const user = await User.findOne({username: username})
         if(!user) return res.status(404).json({message: 'User not found'})
-        const isPasswordValid = bcrypt.compare(password, user.password)
+        const isPasswordValid = await bcrypt.compare(password, user.password)
         if(!isPasswordValid) return res.status(400).json({message: 'Invalid password'})
         const token = jwt.sign({id: user._id}, secret, {expiresIn: '30d'})
         req.session.token = token

@@ -3,14 +3,16 @@ import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import thunk from 'redux-thunk'
 
-import userReducer from './features/user'
-import notificationReducer from './features/notifications'
+import nftreducer from './slices/ntf'
+import notificationReducer from './slices/notifications'
+import userReducer from './slices/user'
 
 const rootReducer = combineReducers({
+    nfts: nftreducer,
+    notification: notificationReducer,
     user: userReducer,
-    notification: notificationReducer
 })
-const persistConfig = { key: 'root', storage }
+const persistConfig = {key: 'root', storage}
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({

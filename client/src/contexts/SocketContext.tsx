@@ -2,13 +2,14 @@ import { FC, ReactNode, createContext, useContext, useEffect } from 'react'
 import io from 'socket.io-client'
 
 import { useAppDispatch } from '../hooks'
-import { addNofitication } from '../store/features/notifications'
+import { addNofitication } from '../store/slices/notifications'
 import sound from '../assets/sounds/alert.wav'
 
 const url = import.meta.env.VITE_URL
 const socket = io(url)
 
 const SocketContext = createContext<any | null>(null)
+SocketContext.displayName = 'Socket'
 
 interface IChildren { children: ReactNode }
 

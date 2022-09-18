@@ -5,7 +5,7 @@ import { FiTrash } from 'react-icons/fi'
 import { useAppDispatch, useAppSelector } from '../hooks'
 import { useAppContext } from '../contexts'
 import { Button } from './'
-import { deleteNotification, markAsRead } from '../store/features/notifications'
+import { deleteNotification, markAsRead } from '../store/slices/notifications'
 
 const NotificationsTab:React.FC = () => {
     const { notifications } = useAppSelector(store => store.notification)

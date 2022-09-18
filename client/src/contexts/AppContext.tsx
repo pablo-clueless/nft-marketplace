@@ -11,6 +11,7 @@ interface IChildren {
 }
 
 const AppContext = createContext<any | null>(null)
+AppContext.displayName = 'App'
 
 const initialState = { login: false, notification: false }
 
