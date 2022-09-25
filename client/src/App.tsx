@@ -16,11 +16,16 @@ declare global {
   }
 }
 
-const props = { positon: 'top-right'}
-
 const App = () => {
   const { isClicked } = useAppContext()
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    let jsonItem = localStorage.getItem('user')
+    if(!jsonItem) return
+    let user = JSON.parse(jsonItem)
+    dispatch(login(user))
+  },[])
   
   return (
     <div className='bg-white'>

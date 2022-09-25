@@ -43,7 +43,7 @@ const BidModal:React.FC<BidDetails> = ({nftId, name, amount, bidId, username, us
 
 const style  = {
     backdrop: `w-screen h-screen fixed top-0 left-0 bg-half-transparent backdrop-blur-sm grid place-items-center z-50`,
-    container: `w-11/12 md:w-600 flex flex-col items-center bg-white rounded drop-shadow-2xl py-4`,
+    container: `w-11/12 md:w-600 flex flex-col items-center bg-white rounded drop-shadow-2xl py-4 pop`,
     form: `flex flex-col items-center gap-3`,
     title: `text-2xl text`
 }

@@ -9,6 +9,7 @@ specifiers:
   '@vitejs/plugin-react': ^2.1.0
   autoprefixer: ^10.4.9
   axios: ^0.27.2
+  canvas-confetti: ^1.5.1
   ethers: ^5.7.0
   framer-motion: ^7.3.2
   postcss: ^8.4.16
@@ -30,6 +31,7 @@ dependencies:
   '@reduxjs/toolkit': 1.8.5_kkwg4cbsojnjnupd3btipussee
   autoprefixer: 10.4.9_postcss@8.4.16
   axios: 0.27.2
+  canvas-confetti: 1.5.1
   ethers: 5.7.0
   framer-motion: 7.3.2_biqbaboplfbrettd7655fr4n2y
   postcss: 8.4.16
@@ -976,6 +978,10 @@ packages:
 
   /caniuse-lite/1.0.30001396:
     resolution: {integrity: sha512-Df93cp39XVZRoOl2EoiuNp2rc4Dnsb9mDQEs4qFa7/uTx3FnfEq+jyHLf/0Ik7GVJA6wvJuAI5ZKUtUEenAm9Q==}
+
+  /canvas-confetti/1.5.1:
+    resolution: {integrity: sha512-Ncz+oZJP6OvY7ti4E1slxVlyAV/3g7H7oQtcCDXgwGgARxPnwYY9PW5Oe+I8uvspYNtuHviAdgA0LfcKFWJfpg==}
+    dev: false
 
   /chalk/2.4.2:
     resolution: {integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==}

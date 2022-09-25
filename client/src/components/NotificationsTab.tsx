@@ -13,7 +13,7 @@ const NotificationsTab:React.FC = () => {
     const dispatch = useAppDispatch()
 
   return (
-    <div className='nav-item flex flex-col items-center fixed right-5 md:right-10 top-16 bg-white rounded-lg w-96 p-2 border-[1px] border-slate-400 shadow-2xl'>
+    <div className='nav-item flex flex-col items-center fixed right-5 md:right-10 top-16 bg-white rounded-lg w-300 md:w-96 p-2 border-[1px] border-slate-400 shadow-2xl pop'>
       <div className='w-full flex justify-between items-center'>
         <div className='flex gap-3'>
           <p className='font-semibold text-lg'>Notifications</p>
@@ -23,7 +23,7 @@ const NotificationsTab:React.FC = () => {
           <MdOutlineCancel />
         </button>
       </div>
-      <div className='w-[350px] h-200 flex flex-col items-center gap-2 p-1 mt-5 overflow-y-scroll border border-slate-400'>
+      <div className='w-full md:w-[350px] h-200 flex flex-col items-center gap-2 p-1 mt-5 overflow-y-scroll border border-slate-400'>
         {notifications.map((notification, index) => (
             <div key={index} className={`w-full border border-slate-400 p-1 relative ${notification.isRead ? 'bg-transparent' : 'bg-slate-400'}`}>
               <p className='text-sm'>{notification.data}</p>
