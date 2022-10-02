@@ -10,15 +10,13 @@ import App from './App'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ContextProvider>
-        <SocketProvider>
-          <Router>
-            <App />
-          </Router>
-        </SocketProvider>
-      </ContextProvider>
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <ContextProvider>
+      <SocketProvider>
+        <Router>
+          <App />
+        </Router>
+      </SocketProvider>
+    </ContextProvider>
+  </Provider>
 )

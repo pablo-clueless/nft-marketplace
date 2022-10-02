@@ -1,8 +1,12 @@
 const NFT = require('../schemas/nft')
 const User = require('../schemas/user')
+const socket = require('socket.io')
 
 const create = async(req, res) => {
     const { name, description, file, price, creator } = req.body
+
+    if(!name || !description || !file) return res.status(400).json({message: 'Please add all NFT info'})
+    if(price === 0) return res.status(400).json({message: `Price cannot be ${price}`})
 
     try {
         const user = await User.findOne({_id: creator})

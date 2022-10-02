@@ -5,7 +5,7 @@ import { } from 'react-icons/hi'
 import { Card } from './'
 import { NFT_LIST } from '../assets'
 
-const container = {hidden: {opacity: 0 },show: {opacity: 1,transition: {staggerChildren: 0.75}}}
+const container = {hidden: {opacity: 0 },show: {opacity: 1,transition: {staggerChildren: 0.5}}}
 const item = {hidden: {opacity: 0},show: {opacity: 1}}
 
 const Discover = () => {

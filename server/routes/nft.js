@@ -9,7 +9,7 @@ router.get('/get', getAll)
 
 router.get('/get/:id', getOne)
 
-router.post('/add', create)
+router.post('/new', create)
 
 router.put('/update-price', updateOne)
 
