@@ -1,0 +1,21 @@
+{
+  "name": "nft-mp",
+  "version": "1.0.0",
+  "description": "The MIT License :balance_scale:",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "yarn --cwd server --production=false install",
+    "build": "yarn --cwd server serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pablo-clueless/nft-marketplace.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pablo-clueless/nft-marketplace/issues"
+  },
+  "homepage": "https://github.com/pablo-clueless/nft-marketplace#readme"
+}
