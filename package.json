@@ -4,8 +4,8 @@
   "description": "The MIT License :balance_scale:",
   "main": "index.js",
   "scripts": {
-    "postinstall": "yarn --cwd server --production=false install",
-    "build": "yarn --cwd server serve"
+    "postinstall": "npm --cwd server --production=false install",
+    "build": "npm --cwd server serve"
   },
   "repository": {
     "type": "git",
