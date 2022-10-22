@@ -4,7 +4,6 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const morgan = require('morgan')
 const uuid = require('uuid').v4
-const os = require('os')
 
 require('dotenv').config()
 
