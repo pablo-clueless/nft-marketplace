@@ -86,7 +86,7 @@ const bid = async(req, res) => {
             break
         }
     } catch (error) {
-        return res.status(500).json({message: 'Internal server error'})
+        return res.status(500)
     }
 }
 

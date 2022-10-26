@@ -1,4 +1,5 @@
 import React, { FormEvent, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { Button, Input } from '../components'
@@ -11,10 +12,11 @@ const initialState = {username: '', password: ''}
 const url = import.meta.env.VITE_URL
 
 const Signup = () => {
+  const { clearErr, error, fetcher, loading } = useHttpRequest()
   const { walletAddress, setWalletAddress } = useAppContext()
   const { inputs, bind } = useFormInputs(initialState)
   const { username, password } = inputs
-  const { clearErr, error, fetcher, loading } = useHttpRequest()
+  const navigate = useNavigate()
 
   const connectWallet = async() => {
     try {
@@ -40,7 +42,9 @@ const Signup = () => {
 
     try {
       const data = await fetcher(`${url}/user/signup`, 'POST', JSON.stringify(payload), headers)
-      if(data) return toast.success(`${data?.message}`)
+      if(!data) return 
+      toast.success(`${data?.message}`)
+      navigate('/')
     } catch (error) {}
   }
 

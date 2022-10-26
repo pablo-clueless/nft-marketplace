@@ -2,7 +2,7 @@ import React from 'react'
 
 interface IButton {
   type: 'button' | 'reset' | 'submit'
-  label: string
+  label: string | Element | JSX.Element
   onClick?: () => void
   variant?: 'outlined' | 'contained'
   icon?: React.ReactNode
@@ -14,14 +14,14 @@ const Button:React.FC<IButton> = ({type, label, onClick, variant, icon, disabled
   if(variant === 'outlined') {
     return (
     <button type={type} onClick={onClick} className={style.outlined} disabled={disabled}>
-      {icon} {label}
+      <>{icon} {label}</>
     </button>
     )
   }
 
   return (
     <button type={type} onClick={onClick} className={style.contained} disabled={disabled}>
-      {icon} {label}
+      <>{icon} {label}</>
     </button>
   )
 }

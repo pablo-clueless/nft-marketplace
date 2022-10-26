@@ -13,7 +13,7 @@ const NotificationsTab:React.FC = () => {
     const dispatch = useAppDispatch()
 
   return (
-    <div className='nav-item flex flex-col items-center fixed right-5 md:right-10 top-16 bg-white rounded-lg w-300 md:w-96 p-2 border-[1px] border-slate-400 shadow-2xl pop'>
+    <div className='nav-item flex flex-col items-center fixed right-5 md:right-10 top-16 bg-white rounded-lg w-300 md:w-96 p-2 border-[1px] border-slate-400 shadow-2xl'>
       <div className='w-full flex justify-between items-center'>
         <div className='flex gap-3'>
           <p className='font-semibold text-lg'>Notifications</p>

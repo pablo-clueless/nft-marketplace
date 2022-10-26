@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FaGoogle, FaGithub } from 'react-icons/fa'
 import Cookies from 'universal-cookie'
@@ -21,12 +21,13 @@ const initialState = { username: '', password: ''}
 const url = import.meta.env.VITE_URL
 
 const Login:React.FC = () => {
-  const { handleUnclicked } = useAppContext()
+  const { clearErr, error, fetcher, loading} = useHttpRequest()
   const { inputs, bind } = useFormInputs(initialState)
+  const { handleUnclicked } = useAppContext()
   const { username, password } = inputs
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const cookies = new Cookies()
-  const { clearErr, error, fetcher, loading} = useHttpRequest()
 
   const handleSubmit = async(e: FormEvent): Promise<any> => {
     e.preventDefault()
@@ -40,6 +41,7 @@ const Login:React.FC = () => {
       dispatch(login(user))
       handleUnclicked('login')
       cookies.set('auth-token', token)
+      navigate('/')
     } catch (error) {}
   }
 

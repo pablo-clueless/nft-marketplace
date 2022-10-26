@@ -12,6 +12,8 @@ import nft7 from './images/nft-7.png'
 import nft8 from './images/nft-8.jpg'
 import nft9 from './images/nft-9.jpg'
 
+import Spinner from './icons/Spinner'
+
 const FOOTER_LINKS = [
     {
         title: 'Page Name',
@@ -151,4 +153,4 @@ const NFT_CATEGORY = [
     },
 ]
 
-export { art1, login_bg, metamask, signup_bg, FOOTER_LINKS, NFT_CATEGORY, NFT_LIST }
+export { art1, login_bg, metamask, signup_bg, Spinner, FOOTER_LINKS, NFT_CATEGORY, NFT_LIST }
