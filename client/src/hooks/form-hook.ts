@@ -1,6 +1,10 @@
 import { ChangeEvent, useReducer } from 'react'
 
-import { Action } from '../interfaces'
+interface Action {
+    type: string
+    name: string
+    value: any
+}
 
 export const useFormInputs = (initialState: any) => {
     const reducer = (state: typeof initialState, action: Action) => {

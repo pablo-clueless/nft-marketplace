@@ -1,3 +1,4 @@
+import { ChangeEventHandler } from 'react'
 
 export interface MetaData {
     name: string
@@ -36,8 +37,10 @@ export interface NFTCard {
 
 export interface Action {
     type: string
-    name: string
+    inputId: string
     value: any
+    isValid: boolean
+    validators: Array<any>
 }
 
 export interface BidDetails {
@@ -49,4 +52,15 @@ export interface BidDetails {
     action: string
     username: string
     onClose: () => void
+}
+
+export interface IInput {
+    element: string
+    id: string
+    label?: string
+    type: string
+    placeholder?: string
+    onInput: (id: string, value: any, isValid: boolean) => void
+    validators: Array<any>
+    errorText: string
 }
